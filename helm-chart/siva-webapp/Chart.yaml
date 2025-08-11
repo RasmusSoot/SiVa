@@ -1,0 +1,17 @@
+apiVersion: v2
+name: siva-webapp
+description: A Helm chart for SiVa Digital Signature Validation Web Application
+version: 0.1.0
+appVersion: 3.9.0
+type: application
+keywords:
+  - siva
+  - digital-signature
+  - validation
+  - webapp
+home: https://github.com/open-eid/SiVa
+sources:
+  - https://github.com/open-eid/SiVa
+maintainers:
+  - name: SiVa Development Team
+    email: info@ria.ee

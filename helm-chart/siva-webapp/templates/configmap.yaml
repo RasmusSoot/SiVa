@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "siva-webapp.fullname" . }}-config
+  labels:
+    {{- include "siva-webapp.labels" . | nindent 4 }}
+data:
+  application.yml: |
+    spring:
+      http:
+        encoding:
+          charset: {{ .Values.config.spring.http.encoding.charset | default "UTF-8" }}
+          enabled: {{ .Values.config.spring.http.encoding.enabled | default true }}
+          force: {{ .Values.config.spring.http.encoding.force | default true }}
+      autoconfigure:
+        exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
+      mvc:
+        throw-exception-if-no-handler-found: true
+      web:
+        resources:
+          add-mappings: false
+
+    siva:
+      http:
+        request:
+          max-request-size-limit: {{ .Values.config.siva.http.request.maxRequestSizeLimit | default "27MB" }}
+
+    management:
+      health:
+        diskspace:
+          enabled: {{ .Values.config.management.health.diskspace.enabled | default false }}
+      endpoints:
+        web:
+          exposure:
+            include:
+              {{- range .Values.config.management.endpoints.web.exposure.include }}
+              - {{ . }}
+              {{- end }}
+          base-path: {{ .Values.config.management.endpoints.web.basePath | default "/monitoring" }}
+      endpoint:
+        health:
+          show-details: {{ .Values.config.management.endpoint.health.showDetails | default "ALWAYS" | quote }}
+        heartbeat:
+          enabled: {{ .Values.config.management.endpoint.heartbeat.enabled | default true }}
+          cache:
+            time-to-live: {{ .Values.config.management.endpoint.heartbeat.cache.timeToLive | default "10s" }}
+        version:
+          enabled: {{ .Values.config.management.endpoint.version.enabled | default true }}

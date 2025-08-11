@@ -172,7 +172,7 @@ jobs:
       - name: Push Helm chart to OCI registry
         run: |
           CHART_VERSION="${{ needs.build.outputs.version }}"
-          helm push siva-webapp-${CHART_VERSION}.tgz oci://${{ env.REGISTRY }}/${{ github.repository_owner }}/helm-charts
+          helm push siva-webapp-${CHART_VERSION}.tgz oci://${{ env.REGISTRY }}/${{ github.repository_owner }}/SiVa
 
   security-scan:
     needs: publish-docker

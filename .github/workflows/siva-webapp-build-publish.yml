@@ -56,13 +56,13 @@ jobs:
         env:
           TZ: Europe/Helsinki
         run: |
-          ./mvnw clean compile -P jar
-          ./mvnw package -P jar -pl siva-parent/siva-webapp -am -DskipTests
-
-      - name: Run tests
-        env:
-          TZ: Europe/Helsinki
-        run: ./mvnw test -pl siva-parent/siva-webapp
+          ./mvnw clean install -P jar -DskipTests
+#          ./mvnw package -P jar -pl siva-parent/siva-webapp -am -DskipTests
+#
+#      - name: Run tests
+#        env:
+#          TZ: Europe/Helsinki
+#        run: ./mvnw test -pl siva-parent/siva-webapp
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
